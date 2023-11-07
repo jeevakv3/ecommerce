@@ -12,8 +12,14 @@ class ApiService {
   }
 
   Future<dynamic> postData(endpoint, queryParamater) async {
+    print(baseUrl + endpoint);
+    print(queryParamater);
+    print(json.encode(queryParamater));
     var data = await http.post(Uri.parse(baseUrl + endpoint),
-        body: jsonEncode(queryParamater));
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(queryParamater));
     var response = jsonDecode(data.body);
     print(response);
     return response;

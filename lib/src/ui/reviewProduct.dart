@@ -13,6 +13,8 @@ class _ReviewProductState extends State<ReviewProduct> {
 
   TextEditingController submitController = TextEditingController();
 
+  int rating = 0;
+
   @override
   void initState() {
     super.initState();
@@ -52,18 +54,47 @@ class _ReviewProductState extends State<ReviewProduct> {
                           )
                         : Expanded(
                             child: ListView.builder(
+                                scrollDirection: Axis.vertical,
                                 itemCount:
                                     controller.productReviewResponse.length,
                                 itemBuilder: (context, index) {
-                                  return Column(
-                                    children: [
-                                      Container(),
-                                    ],
+                                  var data =
+                                      controller.productReviewResponse[index];
+                                  return SizedBox(
+                                    height: 120,
+                                    child: Card(
+                                      elevation: 3.0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: ListTile(
+                                        title: Text(data.name!),
+                                        subtitle: Text(data.rating!),
+                                        trailing: Text(data.reviewText!),
+                                      ),
+                                    ),
                                   );
                                 }),
                           ),
                 const SizedBox(
                   height: 55,
+                ),
+                RatingBar.builder(
+                  initialRating: 0,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    setState(() {
+                      this.rating = rating.toInt();
+                    });
+                  },
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -87,7 +118,8 @@ class _ReviewProductState extends State<ReviewProduct> {
                                     controller.fetchProductViewComment(
                                         widget.productId,
                                         submitController.text,
-                                        1);
+                                        rating);
+                                    submitController.clear();
                                   },
                                   child: Icon(Icons.send_outlined)),
                               labelText: '  Enter review'),

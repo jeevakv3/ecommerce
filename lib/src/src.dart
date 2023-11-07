@@ -4,6 +4,7 @@ export 'controller/productAddCartController.dart';
 export 'controller/productViewCartController.dart';
 export 'controller/productReviewController.dart';
 export 'model/productDetailsResponsemodel.dart';
+export 'model/productReviewResponse.dart';
 export 'model/productViewCartResponse.dart';
 export 'ui/productDetails.dart';
 export 'ui/productViewDetails.dart';

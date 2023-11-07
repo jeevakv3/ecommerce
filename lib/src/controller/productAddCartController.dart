@@ -5,12 +5,12 @@ class AddCartController extends GetxController {
   var qty = 1.obs;
 
   Future<void> addTheCartData(int productId, int quantity) async {
-    Map<String, dynamic> queryParamater = {
-      'product_id': productId,
-      'quantity': quantity
-    };
-    print(queryParamater);
+    final Map queryParamater = {'product_id': productId, 'quantity': productId};
+
     var data = await ApiService().postData('add_to_cart', queryParamater);
+    if (data['message'] != null) {
+      Get.snackbar(data['message'], '');
+    }
   }
 
   void isLoadingBar(isLoad, type) {

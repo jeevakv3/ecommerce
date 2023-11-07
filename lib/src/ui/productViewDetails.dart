@@ -164,7 +164,7 @@ class _ProductViewDetailsState extends State<ProductViewDetails> {
                 child: InkWell(
                   onTap: () {
                     controller.addTheCartData(
-                        widget.data.id!.toInt(), controller.qty.toInt());
+                        widget.data.id!.toInt(), controller.qty.value);
                   },
                   child: Container(
                     height: 60,
